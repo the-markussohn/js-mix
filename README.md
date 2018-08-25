@@ -1,1 +1,1 @@
-#Mix of JavaScript mini projects
+# Mix of JavaScript mini projects
