@@ -4,24 +4,18 @@ document.querySelector('#button-three').addEventListener('click', getApiData);
 
 function getText() {
     fetch('test.txt')
-        .then(function (res) {
-            return res.text();
-        })
-        .then(function (data) {
+        .then(res => res.text())
+        .then(data => {
             console.log(data);
             document.querySelector('#output').innerHTML = data;
         })
-        .catch(function (err) {
-            console.log(err);
-        });
+        .catch(err => console.log(err));
 }
 
 function getJson() {
     fetch('post.json')
-        .then(function (res) {
-            return res.json();
-        })
-        .then(function(data){
+        .then(res => res.json())
+        .then(data => {
             console.log(data);
             let output = '';
             data.forEach(function(item){
@@ -29,17 +23,13 @@ function getJson() {
             });
             document.querySelector('#output').innerHTML = output;
         })
-        .catch(function(err){
-            console.log(err);
-        });
+        .catch(err => console.log(err));
 }
 
 function getApiData() {
     fetch('https://api.github.com/users')
-        .then(function (res) {
-            return res.json();
-        })
-        .then(function (data) {
+        .then(res => res.json())
+        .then(data => {
             console.log(data);
             let output = '';
             data.forEach(function (user) {
@@ -47,7 +37,5 @@ function getApiData() {
             });
             document.querySelector('#output').innerHTML = output;
         })
-        .catch(function (err) {
-            console.log(err);
-        });
+        .catch(err => console.log(err));
 }
