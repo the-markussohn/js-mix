@@ -1,10 +1,10 @@
 /**
  * @todo show alert when user not found using UI class
  * @todo clear profile when text box is empty
- * @todo logic when user found
  */
 
 const github = new Github();
+const ui = new UI();
 const searchUser = document.querySelector('#search-user');
 
 searchUser.addEventListener('keyup', (e) => {
@@ -15,7 +15,7 @@ searchUser.addEventListener('keyup', (e) => {
                 if (result.profile.message === 'Not Found') {
                     
                 } else {
-                    
+                    ui.showProfile(result.profile);
                 }
             }).catch((err) => {
                 console.log(error);
