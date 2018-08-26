@@ -1,6 +1,5 @@
 /**
- * @todo show alert when user not found using UI class
- * @todo clear profile when text box is empty
+ * @todo fetch repos
  */
 
 const github = new Github();
@@ -13,7 +12,7 @@ searchUser.addEventListener('keyup', (e) => {
         github.getUser(userText)
             .then((result) => {
                 if (result.profile.message === 'Not Found') {
-                    
+                    ui.showAlert('User not found', 'alert alert-danger');
                 } else {
                     ui.showProfile(result.profile);
                 }
