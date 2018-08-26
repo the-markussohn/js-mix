@@ -1,7 +1,3 @@
-/**
- * @todo fetch repos
- */
-
 const github = new Github();
 const ui = new UI();
 const searchUser = document.querySelector('#search-user');
@@ -15,6 +11,7 @@ searchUser.addEventListener('keyup', (e) => {
                     ui.showAlert('User not found', 'alert alert-danger');
                 } else {
                     ui.showProfile(result.profile);
+                    ui.showRepositories(result.repos);
                 }
             }).catch((err) => {
                 console.log(error);
