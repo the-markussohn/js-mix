@@ -1,6 +1,13 @@
-document.querySelector('#loan-form').addEventListener('submit', calculateResults);
+document.querySelector('#loan-form').addEventListener('submit', (e) => {
+    document.querySelector('#results').style.display = 'none';
+    document.querySelector('#loading').style.display = 'block';
 
-function calculateResults(e) {
+    setTimeout(calculateResults, 2000);
+
+    e.preventDefault();
+});
+
+function calculateResults() {
     const amount = document.querySelector('#amount');
     const interest = document.querySelector('#interest');
     const yearsToRepay = document.querySelector('#years');
@@ -19,14 +26,17 @@ function calculateResults(e) {
         monthlyPayment.value = monthly.toFixed(2);
         totalPayment.value = (monthly * calculatedPayments).toFixed(2);
         totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2);
+        document.querySelector('#results').style.display = 'block';
+        document.querySelector('#loading').style.display = 'none';
     } else {
         showError('Please check your numbers');
     }
-
-    e.preventDefault();
 }
 
 function showError(msg) {
+    document.querySelector('#results').style.display = 'none';
+    document.querySelector('#loading').style.display = 'none';
+
     const errorDiv = document.createElement('div');
     errorDiv.className = 'alert alert-danger';
     errorDiv.appendChild(document.createTextNode(msg));
