@@ -21,17 +21,37 @@ const ItemCtrl = (() => {
     };
 
     return {
+        getItems: () => {
+            return data.items;
+        },
         logData: () => {
             return data;
         }
     };
-    
+
 })();
 
 const UICtrl = (() => {
 
-    return {
+    const UISelectors = {
+        itemList: '#item-list'
+    };
 
+    return {
+        populateItemList: (items) => {
+            let html = '';
+            items.forEach(item => {
+                html += `
+                    <li id="item-${item.id}" class="collection-item">
+                        <strong>${item.name}: </strong> <em>${item.calories} Calories</em>
+                        <a href="#" class="secondary-content">
+                            <i class="fa fa-pencil edit-item"></i>
+                        </a>
+                    </li>
+                `;
+            });
+            document.querySelector(UISelectors.itemList).innerHTML = html;
+        }
     };
     
 })();
@@ -40,7 +60,8 @@ const App = ((ItemCtrl, UICtrl) => {
     
 return {
     init: () => {
-        console.log('Initializing app...');
+        const items = ItemCtrl.getItems();
+        UICtrl.populateItemList(items);
     }
 };
 
