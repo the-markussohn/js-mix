@@ -28,6 +28,13 @@ class UI {
         });
         this.posts.innerHTML = output;
     }
+
+    getPostFromUI() {
+        return {
+            title: this.titleInput.value,
+            body: this.bodyInput.value
+        };
+    }
 }
 
 export const ui = new UI();
