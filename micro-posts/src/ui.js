@@ -30,16 +30,45 @@ class UI {
     }
 
     getPostFromUI() {
-        return {
-            title: this.titleInput.value,
-            body: this.bodyInput.value
-        };
+        if (this.titleInput.value === '' || this.bodyInput.value === '') {
+            this.showAlert('Please fill in all fields', 'alert alert-danger');
+            return {};
+        } else {
+            return {
+                title: this.titleInput.value,
+                body: this.bodyInput.value
+            };
+        }
     }
 
     fillForm(data) {
         this.idInput.value = data.id;
         this.titleInput.value = data.title;
         this.bodyInput.value = data.body;
+
+        this.changeFormState('edit');
+    }
+
+    changeFormState(type) {
+        if (type === 'edit') {
+            this.postSubmit.textContent = 'Update It';
+            this.postSubmit.className = 'post-submit btn btn-warning btn-block';
+
+            const button = document.createElement('button');
+            button.className = 'post-cancel btn btn-light btn-block';
+            button.appendChild(document.createTextNode('Cancel It'));
+            const cardForm = document.querySelector('.card-form');
+            const formEnd = document.querySelector('.form-end');
+            cardForm.insertBefore(button, formEnd);
+        } else {
+            this.postSubmit.textContent = 'Post It';
+            this.postSubmit.className = 'post-submit btn btn-primary btn-block';
+            if (document.querySelector('.post-cancel')) {
+                document.querySelector('.post-cancel').remove();
+            }
+            this.clearIdInput();
+            this.clearFields();
+        }
     }
 
     showAlert(msg, className) {
@@ -59,6 +88,10 @@ class UI {
         if (currentAlert) {
             currentAlert.remove();
         }
+    }
+
+    clearIdInput() {
+        this.idInput.value = '';
     }
 
     clearFields() {

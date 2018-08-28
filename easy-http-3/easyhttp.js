@@ -31,7 +31,7 @@ class EasyHttp {
 
     async delete(url) {
         const response = await fetch(url, {
-            method: 'PUT',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             }
