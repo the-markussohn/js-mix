@@ -20,13 +20,23 @@ class App {
     submitPost() {
         const post = ui.getPostFromUI();
         if (!this.isEmptyObject(post)) {
-            http.post('http://localhost:3000/posts', post)
-                .then((data) => {
-                    ui.showAlert('Post added', 'alert alert-success');
-                    ui.clearFields();
-                    this.getPosts();
-                })
-                .catch(err => console.log(err));
+            if (post.id === '') {
+                http.post('http://localhost:3000/posts', post)
+                    .then((data) => {
+                        ui.showAlert('Post added', 'alert alert-success');
+                        ui.clearFields();
+                        this.getPosts();
+                    })
+                    .catch(err => console.log(err));
+            } else {
+                http.put(`http://localhost:3000/posts/${post.id}`, post)
+                    .then((data) => {
+                        ui.showAlert('Post updated', 'alert alert-success');
+                        ui.changeFormState('add');
+                        this.getPosts();
+                    })
+                    .catch(err => console.log(err));
+            }
         }
     }
 
@@ -57,6 +67,14 @@ class App {
             };
             ui.fillForm(data);
         }
+        e.preventDefault();
+    }
+
+    cancelEdit(e) {
+        if (e.target.classList.contains('post-cancel')) {
+            ui.changeFormState('add');
+        }
+
         e.preventDefault();
     }
 

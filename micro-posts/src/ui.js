@@ -36,7 +36,8 @@ class UI {
         } else {
             return {
                 title: this.titleInput.value,
-                body: this.bodyInput.value
+                body: this.bodyInput.value,
+                id: this.idInput.value
             };
         }
     }
