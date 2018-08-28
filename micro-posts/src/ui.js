@@ -36,6 +36,12 @@ class UI {
         };
     }
 
+    fillForm(data) {
+        this.idInput.value = data.id;
+        this.titleInput.value = data.title;
+        this.bodyInput.value = data.body;
+    }
+
     showAlert(msg, className) {
         this.clearAlert();
         const div = document.createElement('div');

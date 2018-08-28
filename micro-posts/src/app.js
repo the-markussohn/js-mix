@@ -6,6 +6,8 @@ class App {
     loadEventListeners() {
         document.addEventListener('DOMContentLoaded', this.getPosts);
         document.querySelector('.post-submit').addEventListener('click', this.submitPost.bind(this));
+        document.querySelector('#posts').addEventListener('click', this.deletePost);
+        document.querySelector('#posts').addEventListener('click', this.enableEdit);
     };
 
     getPosts() {
@@ -23,6 +25,25 @@ class App {
                 this.getPosts();
             })
             .catch(err => console.log(err));
+    }
+
+    deletePost() {
+
+    }
+
+    enableEdit(e) {
+        if (e.target.parentElement.classList.contains('edit')) {
+            const id = e.target.parentElement.dataset.id;
+            const title = e.target.parentElement.previousElementSibling.previousElementSibling.textContent;
+            const body = e.target.parentElement.previousElementSibling.textContent;
+            const data = {
+                id,
+                title,
+                body
+            };
+            ui.fillForm(data);
+        }
+        e.preventDefault();
     }
 
     init() {
