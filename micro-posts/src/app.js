@@ -5,7 +5,7 @@ class App {
 
     loadEventListeners() {
         document.addEventListener('DOMContentLoaded', this.getPosts);
-        document.querySelector('.post-submit').addEventListener('click', this.submitPost);
+        document.querySelector('.post-submit').addEventListener('click', this.submitPost.bind(this));
     };
 
     getPosts() {
@@ -17,7 +17,11 @@ class App {
     submitPost() {
         const post = ui.getPostFromUI();
         http.post('http://localhost:3000/posts', post)
-            .then((data) => console.log(data))
+            .then((data) => {
+                ui.showAlert('Post added', 'alert alert-success');
+                ui.clearFields();
+                this.getPosts();
+            })
             .catch(err => console.log(err));
     }
 
